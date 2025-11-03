@@ -1,0 +1,16 @@
+{
+  "name": "playwright-e2e",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "setup": "bash setup-playwright.sh",
+    "test": "npx playwright test",
+    "test:headed": "npx playwright test --headed",
+    "test:ui": "npx playwright test --ui",
+    "install:browsers": "npx playwright install"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.1"
+  }
+}
