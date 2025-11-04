@@ -63,3 +63,10 @@ This repository includes a GitHub Actions workflow at `.github/workflows/playwri
 - uploads the generated `playwright-report` as a workflow artifact
 
 If you want me to customize the workflow (matrix browsers, caching improvements, or run only on specific paths), tell me the desired rules and I will update it.
+
+GitHub Pages deployment
+
+- `.github/workflows/deploy.yml` uploads the static site in `public/` to GitHub Pages once the smoke tests pass.
+- Enable it by pushing the repo to GitHub and visiting **Settings → Pages**; choose "GitHub Actions" as the source.
+- Every push to `main` or `master` (or a manual "Run workflow") will run the tests, package `public/`, and deploy. The job output shows the live URL under `page_url`.
+- When you want a custom domain, drop a `CNAME` file into `public/` before pushing and configure DNS accordingly.
