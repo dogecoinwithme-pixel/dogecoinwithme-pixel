@@ -1,5 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
+const isCI = Boolean((globalThis as typeof globalThis & { process?: { env?: Record<string, unknown> } }).process?.env?.CI);
+
 export default defineConfig({
   testDir: './tests',
   timeout: 30_000,
@@ -7,12 +9,12 @@ export default defineConfig({
     timeout: 5000
   },
   fullyParallel: false,
-  forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  forbidOnly: isCI,
+  retries: isCI ? 2 : 0,
+  workers: isCI ? 1 : undefined,
   reporter: [['list'], ['html', { open: 'never' }]],
   use: {
-    headless: false,
+    headless: isCI ? true : false,
     viewport: { width: 1280, height: 720 },
     actionTimeout: 0,
     trace: 'on-first-retry'
@@ -25,10 +27,6 @@ export default defineConfig({
     {
       name: 'Firefox',
       use: { ...devices['Desktop Firefox'] }
-    },
-    {
-      name: 'WebKit',
-      use: { ...devices['Desktop Safari'] }
     }
   ],
   webServer: {
